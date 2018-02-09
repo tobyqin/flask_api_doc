@@ -11,11 +11,11 @@ def create_app():
     app.config.from_object(Config)
     Bootstrap(app)
 
-    from .views.main import main_bp
-    app.register_blueprint(main_bp)
+    from .views.main import main
+    app.register_blueprint(main)
 
-    from .views.api import api_bp
-    app.register_blueprint(api_bp, url_prefix='/api')
+    from .views.api import api
+    app.register_blueprint(api, url_prefix='/api')
 
     _cache['app'] = app
     return app
