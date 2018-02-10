@@ -20,14 +20,20 @@ def get_todo():
     return jsonify(data)
 
 
-@api.route('/add_todo', methods=['GET', 'POST'])
+@api.route('/add_todo', methods=['POST'])
 def add_todo():
     if request.method == 'POST':
-        name = request.args.get('name')
-        task = request.args.get('task')
-        if not name and not task:
-            return 'Should provide name and task in query string!', 400
+        todo = request.get_json(silent=True)
+        data[todo['name']] = {'task': todo['task']}
+        return 'New todo added: {}'.format(todo)
 
-        data[name] = {'task': task}
 
-    return 'task added: {}'.format(task)
+@api.route('/delete_todo', methods=['GET', 'POST'])
+def delete_todo():
+    name = request.args.get('name') if request.method == 'GET' else request.get_json()['name']
+
+    if name and name in data:
+        del data['name']
+        return 'Todo has been deleted: {}'.format(name)
+    else:
+        return 'No matched todo found.'
