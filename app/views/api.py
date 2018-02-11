@@ -17,11 +17,13 @@ def index():
 
 @api.route('/get_todo', methods=['GET'])
 def get_todo():
+    """Get all todo tasks."""
     return jsonify(data)
 
 
 @api.route('/add_todo', methods=['POST'])
 def add_todo():
+    """Add a todo task."""
     if request.method == 'POST':
         todo = request.get_json(silent=True)
         data[todo['name']] = {'task': todo['task']}
@@ -30,6 +32,7 @@ def add_todo():
 
 @api.route('/delete_todo', methods=['GET', 'POST'])
 def delete_todo():
+    """Delete a todo task."""
     name = request.args.get('name') if request.method == 'GET' else request.get_json()['name']
 
     if name and name in data:
