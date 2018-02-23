@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, jsonify, request
+import re
+
+from flask import Blueprint, render_template, jsonify, request, url_for
+
+from .. import get_app
 
 api = Blueprint('api', __name__)
 
@@ -9,10 +13,19 @@ data = {
 }
 
 
+def get_api_map():
+    for rule in get_app().url_map.iter_rules():
+        if re.search(r'/api/.+', str(rule)):
+            yield str(rule), rule.endpoint
+
+
 @api.route('/', methods=['GET'])
 def index():
     """List all API to this page."""
-    return render_template('api_index.html')
+    api_map = sorted(list(get_api_map()))
+    index_url = url_for('main.index', _external=True)
+    api_map = [(index_url + x[0][1:], x[1]) for x in api_map]
+    return render_template('api_index.html', api_map=api_map)
 
 
 @api.route('/get_todo', methods=['GET'])
