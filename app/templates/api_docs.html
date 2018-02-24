@@ -4,14 +4,13 @@
 
 {% block breadcrumb_nav %}
     <li><a href="{{ url_for('api.index') }}">Api Root</a></li>
+    <li><a href="{{ url_for('api.index') }}">Get Todo</a></li>
 {% endblock %}
 
 {% block page_header %}
-    <h1>Api Root</h1>
+    <h1>Get Todo</h1>
 {% endblock %}
 
 {% block content_area %}
-<pre>{
-{% for i in api_map %}    "<a href="/docs/{{ i[1] }}">{{ i[0] }}</a>"{{ ",\n" if not loop.last }}{% endfor %}
-}</pre>
+<pre>TODO</pre>
 {% endblock %}
