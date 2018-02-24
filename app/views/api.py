@@ -36,7 +36,9 @@ def get_todo():
 
 @api.route('/add_todo', methods=['POST'])
 def add_todo():
-    """Add a todo task."""
+    """
+    Add a todo task.
+    """
     if request.method == 'POST':
         todo = request.get_json(silent=True)
         data[todo['name']] = {'task': todo['task']}
