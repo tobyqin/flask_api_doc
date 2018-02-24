@@ -25,6 +25,8 @@ def index():
     api_map = sorted(list(get_api_map()))
     index_url = url_for('main.index', _external=True)
     api_map = [(index_url + x[0][1:], x[1]) for x in api_map]
+    # api_map = [index_url + x[0][1:] for x in api_map]
+    # api_map = json.dumps(api_map,indent=4)
     return render_template('api_index.html', api_map=api_map)
 
 

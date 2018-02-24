@@ -9,6 +9,7 @@
 
 {% block content %}
     <div id="wrap">
+    <!-- Begin nav bar -->
         <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -29,23 +30,18 @@
 
         <!-- Begin page content -->
         <div class="container">
+            <ul class="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li><a href="/api/">Api Root</a></li>
+            </ul>
             <div class="page-header">
-                <h1>Api Reference</h1>
+                <h1>Api Root</h1>
             </div>
-            <div class="well">
-                <ul>
-                    {% for api_link in api_map %}
-                        <li>
-                            <a href="/docs/{{ api_link[1] }}">
-                                {{ api_link[0] }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
+<pre>{
+{% for i in api_map %}    "<a href="/docs/{{ i[1] }}">{{ i[0] }}</a>"{{ ",\n" if not loop.last }}{% endfor %}
+}</pre>
         </div>
     </div>
-
     <div id="footer">
         <div class="container">
             <p class="text-muted credit">Copyright © <a href="https://github.com/tobyqin/">Toby Qin</a>
